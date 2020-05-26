@@ -34,11 +34,14 @@ SettingsDialog::~SettingsDialog()
 
 void SettingsDialog::onAccepted()
 {
-    helper->setGeneralSettings(ui->toolbarStyleComboBox->currentIndex(),
-                               ui->hideCheckBox->isChecked(),
-                               ui->startAtLoginCheckbox->isChecked(),
-                               ui->oneInstanceCheckBox->isChecked(),
-                               ui->nativeMenuBarCheckBox->isChecked());
+    ConfigModel config = {0};
+    config.ts = ui->toolbarStyleComboBox->currentIndex();
+    config.hide = ui->hideCheckBox->isChecked();
+    config.sal = ui->startAtLoginCheckbox->isChecked();
+    config.oneInstance = ui->oneInstanceCheckBox->isChecked();
+    config.nativeMB = ui->nativeMenuBarCheckBox->isChecked();
+    config.pac = ui->pacCheckBox->isChecked();
+    helper->setGeneralSettings(config);
     this->accept();
 }
 

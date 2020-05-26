@@ -36,6 +36,7 @@ void ConfigHelper::save(const ConnectionTableModel &model)
     settings->setValue("ShowToolbar", QVariant(showToolbar));
     settings->setValue("ShowFilterBar", QVariant(showFilterBar));
     settings->setValue("NativeMenuBar", QVariant(nativeMenuBar));
+    settings->setValue("PAC", QVariant(pac));
     settings->setValue("ConfigVersion", QVariant(2.6));
 }
 
@@ -211,16 +212,22 @@ bool ConfigHelper::isNativeMenuBar() const
     return nativeMenuBar;
 }
 
-void ConfigHelper::setGeneralSettings(int ts, bool hide, bool sal, bool oneInstance, bool nativeMB)
+bool ConfigHelper::isPACMode() const
 {
-    if (toolbarStyle != ts) {
-        emit toolbarStyleChanged(static_cast<Qt::ToolButtonStyle>(ts));
+    return pac;
+}
+
+void ConfigHelper::setGeneralSettings(const ConfigModel& config)
+{
+    if (toolbarStyle != config.ts) {
+        emit toolbarStyleChanged(static_cast<Qt::ToolButtonStyle>(config.ts));
     }
-    toolbarStyle = ts;
-    hideWindowOnStartup = hide;
-    startAtLogin = sal;
-    onlyOneInstace = oneInstance;
-    nativeMenuBar = nativeMB;
+    toolbarStyle = config.ts;
+    hideWindowOnStartup = config.hide;
+    startAtLogin = config.sal;
+    onlyOneInstace = config.oneInstance;
+    nativeMenuBar = config.nativeMB;
+    pac = config.pac;
 }
 
 void ConfigHelper::setShowToolbar(bool show)
@@ -258,6 +265,7 @@ void ConfigHelper::readGeneralSettings()
     showToolbar = settings->value("ShowToolbar", QVariant(true)).toBool();
     showFilterBar = settings->value("ShowFilterBar", QVariant(true)).toBool();
     nativeMenuBar = settings->value("NativeMenuBar", QVariant(false)).toBool();
+    pac = settings->value("PAC", QVariant(false)).toBool();
 }
 
 void ConfigHelper::checkProfileDataUsageReset(SQProfile &profile)

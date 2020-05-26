@@ -614,6 +614,11 @@
         <source>Start at login</source>
         <translation>登录时启动</translation>
     </message>
+    <message>
+    <location filename="../settingsdialog.ui" line="96"/>
+    <source>PAC mode</source>
+    <translation>PAC模式</translation>
+</message>
 </context>
 <context>
     <name>ShareDialog</name>

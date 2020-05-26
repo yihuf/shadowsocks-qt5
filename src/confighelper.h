@@ -23,6 +23,18 @@
 #include "connectiontablemodel.h"
 #include "connection.h"
 
+
+struct ConfigModel
+{
+    int ts;
+    bool hide;
+    bool sal;
+    bool oneInstance;
+    bool nativeMB;
+    bool pac;
+};
+
+
 class ConfigHelper : public QObject
 {
     Q_OBJECT
@@ -70,7 +82,8 @@ public:
     bool isShowToolbar() const;
     bool isShowFilterBar() const;
     bool isNativeMenuBar() const;
-    void setGeneralSettings(int ts, bool hide, bool automaticStartUp, bool oneInstance, bool nativeMB);
+    bool isPACMode() const;
+    void setGeneralSettings(const ConfigModel& config);
     void setMainWindowGeometry(const QByteArray &geometry);
     void setMainWindowState(const QByteArray &state);
     void setTableGeometry(const QByteArray &geometry);
@@ -96,6 +109,7 @@ private:
     bool showToolbar;
     bool showFilterBar;
     bool nativeMenuBar;
+    bool pac;
     QSettings *settings;
     QString configFile;
 
