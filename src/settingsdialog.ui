@@ -98,7 +98,7 @@
     </widget>
    </item>
    <item row="7" column="0">
-    <widget class="QCheckBox" name="startAtLoginCheckbox">
+    <widget class="QCheckBox" name="pacCheckbox">
      <property name="text">
       <string>PAC mode</string>
      </property>

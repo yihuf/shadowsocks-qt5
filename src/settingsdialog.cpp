@@ -14,6 +14,7 @@ SettingsDialog::SettingsDialog(ConfigHelper *ch, QWidget *parent) :
     ui->startAtLoginCheckbox->setChecked(helper->isStartAtLogin());
     ui->oneInstanceCheckBox->setChecked(helper->isOnlyOneInstance());
     ui->nativeMenuBarCheckBox->setChecked(helper->isNativeMenuBar());
+    ui->pacCheckbox->setChecked(helper->isPACMode());
 
     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &SettingsDialog::onAccepted);
     connect(ui->toolbarStyleComboBox, &QComboBox::currentTextChanged, this, &SettingsDialog::onChanged);
@@ -21,6 +22,7 @@ SettingsDialog::SettingsDialog(ConfigHelper *ch, QWidget *parent) :
     connect(ui->startAtLoginCheckbox, &QCheckBox::stateChanged, this, &SettingsDialog::onChanged);
     connect(ui->oneInstanceCheckBox, &QCheckBox::stateChanged, this, &SettingsDialog::onChanged);
     connect(ui->nativeMenuBarCheckBox, &QCheckBox::stateChanged, this, &SettingsDialog::onChanged);
+    connect(ui->pacCheckbox, &QCheckBox::stateChanged, this, &SettingsDialog::onChanged);
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
@@ -40,7 +42,7 @@ void SettingsDialog::onAccepted()
     config.sal = ui->startAtLoginCheckbox->isChecked();
     config.oneInstance = ui->oneInstanceCheckBox->isChecked();
     config.nativeMB = ui->nativeMenuBarCheckBox->isChecked();
-    config.pac = ui->pacCheckBox->isChecked();
+    config.pac = ui->pacCheckbox->isChecked();
     helper->setGeneralSettings(config);
     this->accept();
 }
